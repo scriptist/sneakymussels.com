@@ -7,6 +7,7 @@ const defaultSettings = {
 	x: 0,
 	y: 0,
 	drift: 1,
+	maxDrift: null,
 	lift: 4,
 	grow: 1,
 	size: 10,
@@ -65,7 +66,14 @@ module.exports = class Bubble {
 		if (-this.deltaY < this.settings.lift)
 			this.deltaY -= this.settings.lift / 100;
 
-		this.deltaX += (Math.random() * 2 - 1) * this.settings.drift / 10;
+		if (typeof this.settings.maxDrift === 'number' && Math.abs(this.settings.x - this.x) > this.settings.maxDrift) {
+			if (this.settings.x > this.x)
+				this.deltaX += 0.25 * this.settings.drift / 10;
+			else
+				this.deltaX -= 0.25 * this.settings.drift / 10;
+		} else {
+			this.deltaX += (Math.random() * 2 - 1) * this.settings.drift / 10;
+		}
 
 		// Then update position
 		this.x += this.deltaX;
