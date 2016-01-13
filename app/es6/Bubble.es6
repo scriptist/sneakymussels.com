@@ -7,7 +7,7 @@ const defaultSettings = {
 	x: 0,
 	y: 0,
 	drift: 1,
-	lift: 10,
+	lift: 4,
 	grow: 1,
 	size: 10,
 	parent: document.body,

@@ -60,11 +60,13 @@ module.exports = class BubbleEmitter {
 			return;
 
 		this.active = false;
-		window.cancelTimeout(this.timeout);
+		window.clearTimeout(this.timeout);
+		this.timeout = null;
 	}
 
 	tick() {
-		this.emitBubble();
+		if (!this.visibilityState || this.visibilityState === 'visible')
+			this.emitBubble();
 
 		const rate = this.settings.rate;
 		const timeUntilNext = 1000 / this.random(rate * 0.5, rate * 1.5);
