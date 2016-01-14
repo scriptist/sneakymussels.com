@@ -69,6 +69,7 @@ module.exports = class SneakMussels {
 		this.state = 'happyValentinesDay';
 		this.mussel.setPosition(window.innerWidth / 2, window.innerHeight - this.mussel.settings.size / 2 * scale, scale);
 		setTimeout(() => {
+			this.mussel.emitter.bubbleClass = 'heart';
 			this.mussel.emitter.start();
 		}, 600);
 	}

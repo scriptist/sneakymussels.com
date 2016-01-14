@@ -11,6 +11,7 @@ const defaultSettings = {
 	lift: 4,
 	grow: 1,
 	size: 10,
+	class: '',
 	parent: document.body,
 };
 
@@ -27,7 +28,7 @@ module.exports = class Bubble {
 
 	createElement() {
 		this.elm = document.createElement('div');
-		this.elm.className = 'bubble';
+		this.elm.className = 'bubble' + (this.settings.class ? ' bubble--' + this.settings.class : '');
 		this.elm.style.width = this.elm.style.height = `${this.settings.size}px`;
 
 		this.render();
