@@ -14,7 +14,12 @@
 
 		<button @click="happyValentinesDay" class="button" v-if="state === 'prize'">I've Got It</button>
 
-		<h1 class="happy-valentines-day" v-if="state === 'happyValentinesDay'">Happy <span class="happy-valentines-day__big">Valentines Day</span> Sunny</h1>
+		<h1 class="happy-valentines-day" v-if="state === 'happyValentinesDay'">
+			<span class="happy-valentines-day__text">
+				Happy <span class="happy-valentines-day__big">Valentines Day</span> to the best girlfriend in the whole damn universe
+			</span>
+			<span class="happy-valentines-day__cheat">You highlighted the text! You bloody cheater! &lt;3</span>
+		</h1>
 
 	{% endraw %}
 {% endblock %}

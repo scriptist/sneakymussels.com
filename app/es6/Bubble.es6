@@ -29,7 +29,7 @@ module.exports = class Bubble {
 	createElement() {
 		this.elm = document.createElement('div');
 		this.elm.className = 'bubble' + (this.settings.class ? ' bubble--' + this.settings.class : '');
-		this.elm.style.width = this.elm.style.height = `${this.settings.size}px`;
+		this.elm.style.fontSize = `${this.settings.size}px`;
 
 		this.render();
 

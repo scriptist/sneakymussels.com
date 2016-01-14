@@ -1,11 +1,16 @@
 .happy-valentines-day {
-	font-size: 10vmin;
+	color: white;
+	font-size: 5vmin;
 	font-weight: bold;
 	letter-spacing: 0.05em;
+	margin: 1em auto 0;
+	max-width: 16em;
 	text-align: center;
 
-	position: relative;
-	z-index: 1;
+	.happy-valentines-day__text {
+		position: relative;
+		z-index: 1;
+	}
 
 	.happy-valentines-day__big {
 		display: block;
@@ -13,5 +18,13 @@
 		text-transform: uppercase;
 		position: relative;
 		top: 0.06em;
+		z-index: 1;
+	}
+
+	.happy-valentines-day__cheat {
+		display: block;
+		position: relative;
+		font-size: 0.5em;
+		margin-top: 1em;
 	}
 }

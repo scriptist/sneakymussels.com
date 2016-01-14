@@ -3,6 +3,7 @@
 const objectAssign = require('object-assign');
 const Vue = require('Vue');
 const Mussel = require('Mussel.es6');
+const BubbleEmitter = require('BubbleEmitter.es6');
 
 const defaultSettings = {
 	parent: document.body,
@@ -69,8 +70,16 @@ module.exports = class SneakMussels {
 		this.state = 'happyValentinesDay';
 		this.mussel.setPosition(window.innerWidth / 2, window.innerHeight - this.mussel.settings.size / 2 * scale, scale);
 		setTimeout(() => {
-			this.mussel.emitter.bubbleClass = 'heart';
-			this.mussel.emitter.start();
+			window.h = new BubbleEmitter({
+				x: window.innerWidth / 2,
+				y: window.innerHeight - this.mussel.settings.size / 2 * scale,
+				rate: 5,
+				lift: 4,
+				drift: 2,
+				size: [80, 200],
+				bubbleClass: 'heart',
+				start: true,
+			});
 		}, 600);
 	}
 };

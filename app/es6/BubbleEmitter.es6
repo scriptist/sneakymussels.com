@@ -13,6 +13,7 @@ const defaultSettings = {
 	grow: [2, 5],
 	size: [10, 20],
 	start: false,
+	bubbleClass: '',
 	parent: document.body,
 	positionElement: null,
 };
@@ -23,7 +24,6 @@ module.exports = class BubbleEmitter {
 		[this.x, this.y] = [this.settings.x, this.settings.y];
 
 		this.active = false;
-		this.bubbleClass = null;
 		this.timeout = null;
 
 		if (this.settings.start)
@@ -45,7 +45,7 @@ module.exports = class BubbleEmitter {
 			lift: this.settings.lift,
 			grow: this.random.apply(this, this.settings.grow),
 			size: this.random.apply(this, this.settings.size),
-			class: this.bubbleClass,
+			class: this.settings.bubbleClass,
 			parent: this.settings.parent,
 		});
 	}
