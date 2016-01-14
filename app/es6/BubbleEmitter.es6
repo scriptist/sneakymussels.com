@@ -14,6 +14,7 @@ const defaultSettings = {
 	size: [10, 20],
 	start: false,
 	parent: document.body,
+	positionElement: null,
 };
 
 module.exports = class BubbleEmitter {
@@ -29,9 +30,15 @@ module.exports = class BubbleEmitter {
 	}
 
 	emitBubble() {
+		let [x, y] = [this.x, this.y];
+		if (this.settings.positionElement) {
+			const elm = this.settings.positionElement;
+			[x, y] = [elm.offsetLeft, elm.offsetTop];
+		}
+
 		new Bubble({
-			x: this.x,
-			y: this.y,
+			x: x,
+			y: y,
 			drift: this.settings.drift,
 			maxDrift: this.settings.maxDrift,
 			lift: this.settings.lift,

@@ -25,6 +25,7 @@ module.exports = class SneakMussels {
 			data: this,
 			methods: {
 				start: this.start.bind(this),
+				happyValentinesDay: this.happyValentinesDay.bind(this),
 			},
 		});
 	}
@@ -37,7 +38,7 @@ module.exports = class SneakMussels {
 				this.state = 'start';
 				clearInterval(i);
 			}
-		}, 200);
+		}, 100);
 	}
 
 	start() {
@@ -45,7 +46,30 @@ module.exports = class SneakMussels {
 			return;
 
 		this.state = 'sneak';
+		this.mussel.elm.addEventListener('click', this.catch.bind(this));
+		this.mussel.elm.style.cursor = 'pointer';
+		this.mussel.setPosition(300, 300, 0.5).show();
+	}
 
+	catch() {
+		if (this.state !== 'sneak')
+			return;
 
+		this.mussel.elm.style.cursor = '';
+		this.state = 'caught';
+		this.mussel.setPosition(window.innerWidth / 2, window.innerHeight / 2, 1);
+
+		setTimeout(() => {
+			this.state = 'prize';
+		}, 1500);
+	}
+
+	happyValentinesDay() {
+		const scale = 0.5;
+		this.state = 'happyValentinesDay';
+		this.mussel.setPosition(window.innerWidth / 2, window.innerHeight - this.mussel.settings.size / 2 * scale, scale);
+		setTimeout(() => {
+			this.mussel.emitter.start();
+		}, 600);
 	}
 };

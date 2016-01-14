@@ -1,8 +1,10 @@
 .mussel {
 	background: green;
 	display: block;
-	height: 100px;
-	width: 100px;
 
-	transition: transform $transition-long;
+	transition: top $transition-long, left $transition-long, transform $transition-long;
+
+	position: absolute;
+	top: 0;
+	left: 0;
 }
