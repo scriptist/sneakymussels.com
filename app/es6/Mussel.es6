@@ -38,23 +38,32 @@ module.exports = class Mussel {
 		this.render();
 	}
 
-	setPosition(x, y, scale) {
+	setPosition(x, y, scale, transition = true) {
 		[this.x, this.y] = [x, y];
 
 		if (typeof scale === 'number')
-			this.setScale(scale);
+			this.setScale(scale, transition);
 		else
-			this.render();
+			this.render(transition);
 	}
 
-	setScale(scale) {
+	setScale(scale, transition = true) {
 		this.scale = scale;
-		this.render();
+		this.render(transition);
 	}
 
-	render() {
+	render(transition = true) {
+		if (!transition) {
+			this.elm.style.transition = 'none';
+			this.elm.offsetWidth;
+		}
 		const x = this.x - this.settings.size / 2;
 		const y = this.y - this.settings.size / 2;
 		this.elm.style.transform = `translate(${x}px, ${y}px) scale(${this.scale})`;
+
+		if (!transition) {
+			this.elm.offsetWidth;
+			this.elm.style.transition = '';
+		}
 	}
 };
