@@ -2,12 +2,12 @@
 {% block content %}
 	{% raw %}
 
-		<button class="loader-button" :class="{'loader-button__loaded': state === 'start'}" v-if="state === 'loading' || state === 'start'">
+		<button @click="start" class="loader-button" :class="{'loader-button__loaded': state === 'start'}" v-if="state === 'loading' || state === 'start'" transition="loader-button--t">
 			<span class="loader-button__bar" :style="{width: (loadedAmount * 100) + '%'}"></span>
-			<span class="loader-button__loading-text" v-if="state === 'loading'" transition="loader-button__loading-text--transition">
+			<span class="loader-button__loading-text" v-if="state === 'loading'" transition="loader-button__loading-text--t">
 				Loading
 			</span>
-			<span class="loader-button__text" v-if="state === 'start'" transition="loader-button__text--transition">
+			<span class="loader-button__text" v-if="state === 'start'" transition="loader-button__text--t">
 				Start
 			</span>
 		</button>

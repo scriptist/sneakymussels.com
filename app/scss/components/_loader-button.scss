@@ -8,10 +8,16 @@
 	left: 50%;
 
 	transform: translate(-50%, -50%);
+	transition: opacity $transition-short;
 
 	&:not(.loader-button__loaded) {
 		background-color: $color-secondary;
 		pointer-events: none;
+	}
+
+	&.loader-button--t-enter,
+	&.loader-button--t-leave {
+		opacity: 0;
 	}
 
 	.loader-button__bar {
@@ -45,8 +51,8 @@
 	}
 
 	.loader-button__loading-text {
-		&.loader-button__loading-text--transition-enter,
-		&.loader-button__loading-text--transition-leave {
+		&.loader-button__loading-text--t-enter,
+		&.loader-button__loading-text--t-leave {
 			opacity: 0;
 		}
 	}
@@ -54,8 +60,8 @@
 	.loader-button__text {
 		transition-delay: $transition-long;
 
-		&.loader-button__text--transition-enter,
-		&.loader-button__text--transition-leave {
+		&.loader-button__text--t-enter,
+		&.loader-button__text--t-leave {
 			opacity: 0;
 		}
 	}

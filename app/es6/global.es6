@@ -2,4 +2,4 @@
 
 var SneakyMussels = require('SneakyMussels.es6');
 
-new SneakyMussels();
+window.s = new SneakyMussels();

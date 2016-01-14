@@ -30,7 +30,7 @@ module.exports = class Bubble {
 		this.elm.className = 'bubble';
 		this.elm.style.width = this.elm.style.height = `${this.settings.size}px`;
 
-		this.setTransform();
+		this.render();
 
 		this.settings.parent.appendChild(this.elm);
 	}
@@ -40,7 +40,7 @@ module.exports = class Bubble {
 		this.settings.parent.removeChild(this.elm);
 	}
 
-	setTransform() {
+	render() {
 		const x = this.x - this.settings.size / 2;
 		const y = this.y - this.settings.size / 2;
 		this.elm.style.transform = `translate(${x}px, ${y}px) scale(${this.scale})`;
@@ -82,6 +82,6 @@ module.exports = class Bubble {
 		if (this.scale < 1)
 			this.scale += 0.005;
 
-		this.setTransform();
+		this.render();
 	}
 };

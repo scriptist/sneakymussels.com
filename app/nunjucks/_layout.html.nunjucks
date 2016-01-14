@@ -2,7 +2,7 @@
 <html>
 <head>
 
-	<title>{% block title %}Generator TLDR - Static{% endblock %}</title>
+	<title>{% block title %}Sneaky Mussels{% endblock %}</title>
 	<meta charset='utf-8' />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 

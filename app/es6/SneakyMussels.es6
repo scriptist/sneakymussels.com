@@ -2,6 +2,7 @@
 
 const objectAssign = require('object-assign');
 const Vue = require('Vue');
+const Mussel = require('Mussel.es6');
 
 const defaultSettings = {
 	parent: document.body,
@@ -14,11 +15,15 @@ module.exports = class SneakMussels {
 		this.state = 'loading';
 		this.loadedAmount = 0;
 		this.load();
+		this.mussel = new Mussel({
+			parent: this.settings.parent,
+		});
 
 		this.vue = new Vue({
 			el: this.settings.parent,
 			data: this,
 			methods: {
+				start: this.start.bind(this),
 			},
 		});
 	}
@@ -32,5 +37,14 @@ module.exports = class SneakMussels {
 				clearInterval(i);
 			}
 		}, 200);
+	}
+
+	start() {
+		if (this.state !== 'start')
+			return;
+
+		this.state = 'sneak';
+
+
 	}
 };
