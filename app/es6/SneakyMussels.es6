@@ -73,7 +73,7 @@ module.exports = class SneakMussels {
 			window.h = new BubbleEmitter({
 				x: window.innerWidth / 2,
 				y: window.innerHeight - this.mussel.settings.size / 2 * scale,
-				rate: 5,
+				rate: 3,
 				lift: 4,
 				drift: 2,
 				size: [80, 200],
