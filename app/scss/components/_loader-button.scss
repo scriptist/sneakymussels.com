@@ -1,0 +1,71 @@
+.loader-button {
+	$loading-background: $color-secondary;
+	$loaded-background: $color-primary;
+
+	background: $loading-background;
+	border: none;
+	color: white;
+	cursor: pointer;
+	font-size: 1.6em;
+	font-weight: 100;
+	height: 1.8em;
+	text-transform: uppercase;
+	pointer-events: none;
+	width: 10em;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	transform: translate(-50%, -50%);
+
+	&.loader-button__loaded {
+		background: $loaded-background;
+		pointer-events: auto;
+
+		&:hover .loader-button__bar {
+			background: darken($loaded-background, 10%);
+		}
+	}
+
+	.loader-button__bar {
+		background: $loaded-background;
+
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+
+		transition: background $transition-short;
+	}
+
+	.loader-button__loading-text,
+	.loader-button__text {
+		opacity: 1;
+		z-index: 1;
+
+		position: absolute;
+		top: 50%;
+		right: 0;
+		left: 0;
+		transform: translateY(-50%);
+
+		transition: opacity $transition-long, transform $transition-long;
+	}
+
+	.loader-button__loading-text {
+		&.loader-button__loading-text--transition-enter,
+		&.loader-button__loading-text--transition-leave {
+			opacity: 0;
+		}
+	}
+
+	.loader-button__text {
+		transition-delay: $transition-long;
+
+		&.loader-button__text--transition-enter,
+		&.loader-button__text--transition-leave {
+			opacity: 0;
+		}
+	}
+}

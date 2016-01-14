@@ -1,5 +1,16 @@
 {% extends "_layout.html.nunjucks" %}
 {% block content %}
-	<h1>Home</h1>
-	Hello!
+	{% raw %}
+
+		<button class="loader-button" :class="{'loader-button__loaded': state === 'start'}" v-if="state === 'loading' || state === 'start'">
+			<span class="loader-button__bar" :style="{width: (loadedAmount * 100) + '%'}"></span>
+			<span class="loader-button__loading-text" v-if="state === 'loading'" transition="loader-button__loading-text--transition">
+				Loading
+			</span>
+			<span class="loader-button__text" v-if="state === 'start'" transition="loader-button__text--transition">
+				Start
+			</span>
+		</button>
+
+	{% endraw %}
 {% endblock %}
