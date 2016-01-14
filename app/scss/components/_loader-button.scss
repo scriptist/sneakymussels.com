@@ -1,16 +1,6 @@
 .loader-button {
-	$loading-background: $color-secondary;
-	$loaded-background: $color-primary;
+	@extend .button;
 
-	background: $loading-background;
-	border: none;
-	color: white;
-	cursor: pointer;
-	font-size: 1.6em;
-	font-weight: 100;
-	height: 1.8em;
-	text-transform: uppercase;
-	pointer-events: none;
 	width: 10em;
 
 	position: absolute;
@@ -19,30 +9,31 @@
 
 	transform: translate(-50%, -50%);
 
-	&.loader-button__loaded {
-		background: $loaded-background;
-		pointer-events: auto;
-
-		&:hover .loader-button__bar {
-			background: darken($loaded-background, 10%);
-		}
+	&:not(.loader-button__loaded) {
+		background-color: $color-secondary;
+		pointer-events: none;
 	}
 
 	.loader-button__bar {
-		background: $loaded-background;
+		background-color: $color-primary;
+		opacity: 1;
 
 		position: absolute;
 		top: 0;
 		bottom: 0;
 		left: 0;
 
-		transition: background $transition-short;
+		transition: opacity $transition-short;
+		transition-delay: $transition-short;
+	}
+
+	&.loader-button__loaded .loader-button__bar {
+		opacity: 0;
 	}
 
 	.loader-button__loading-text,
 	.loader-button__text {
 		opacity: 1;
-		z-index: 1;
 
 		position: absolute;
 		top: 50%;
