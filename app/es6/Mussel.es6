@@ -38,7 +38,7 @@ module.exports = class Mussel {
 		this.render();
 	}
 
-	setPosition(x, y, scale, transition = true) {
+	setPosition(x, y, scale, transition) {
 		[this.x, this.y] = [x, y];
 
 		if (typeof scale === 'number')
@@ -47,7 +47,7 @@ module.exports = class Mussel {
 			this.render(transition);
 	}
 
-	setScale(scale, transition = true) {
+	setScale(scale, transition) {
 		this.scale = scale;
 		this.render(transition);
 	}
@@ -56,14 +56,20 @@ module.exports = class Mussel {
 		if (!transition) {
 			this.elm.style.transition = 'none';
 			this.elm.offsetWidth;
+		} else if (typeof transition === 'number') {
+			this.elm.style.transitionDuration = `${transition}ms`;
+			this.elm.style.transitionTimingFunction = 'linear';
+			this.elm.offsetWidth;
 		}
 		const x = this.x - this.settings.size / 2;
 		const y = this.y - this.settings.size / 2;
 		this.elm.style.transform = `translate(${x}px, ${y}px) scale(${this.scale})`;
 
-		if (!transition) {
+		if (transition !== true) {
 			this.elm.offsetWidth;
 			this.elm.style.transition = '';
+			this.elm.style.transitionDuration = '';
+			this.elm.style.transitionTimingFunction = '';
 		}
 	}
 };
