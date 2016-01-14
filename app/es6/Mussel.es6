@@ -64,6 +64,7 @@ module.exports = class Mussel {
 		const x = this.x - this.settings.size / 2;
 		const y = this.y - this.settings.size / 2;
 		this.elm.style.transform = `translate(${x}px, ${y}px) scale(${this.scale})`;
+		this.elm.style.display = this.hidden ? 'none' : '';
 
 		if (transition !== true) {
 			this.elm.offsetWidth;

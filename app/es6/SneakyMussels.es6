@@ -16,6 +16,7 @@ module.exports = class SneakMussels {
 		this.loadedAmount = 0;
 		this.load();
 		this.mussel = new Mussel({
+			hidden: true,
 			parent: this.settings.parent,
 		});
 
