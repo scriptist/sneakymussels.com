@@ -131,6 +131,7 @@ module.exports = class SneakMussels {
 
 		setTimeout(() => {
 			this.state = 'prize';
+			this.mussel.setPosition((window.innerWidth - this.mussel.settings.size) / 2, window.innerHeight / 2, 1);
 		}, 1500);
 	}
 

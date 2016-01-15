@@ -1,0 +1,16 @@
+.look-in-the-cupboard {
+	max-width: 18em;
+
+	position: absolute;
+	top: 50%;
+	right: 0;
+	left: 50%;
+
+	transform: translateY(-50%);
+
+	.look-in-the-cupboard__text {
+		font-size: 2em;
+		font-weight: 100;
+		margin-bottom: 1em;
+	}
+}

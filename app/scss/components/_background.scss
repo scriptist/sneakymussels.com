@@ -12,6 +12,7 @@
 
 	.background__sea {
 		background-color: #1FA2B6;
+		background-image: radial-gradient(at 50% -70%, white, #1FA2B6, darken(#1FA2B6, 15%));
 		transition: opacity $transition-long;
 
 		&.background__sea--t-enter,

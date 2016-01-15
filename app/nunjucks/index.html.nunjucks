@@ -17,7 +17,12 @@
 			<div class="background__seafloor" v-if="state === 'sneak'" transition="background__seafloor--t"></div>
 		</div>
 
-		<button @click="happyValentinesDay" class="button" v-if="state === 'prize'">I've Got It</button>
+		<div class="look-in-the-cupboard" v-if="state === 'prize'">
+			<div class="look-in-the-cupboard__text">
+				Now look in the cupboard
+			</div>
+			<button @click="happyValentinesDay" class="button">I've Got It</button>
+		</div>
 
 		<h1 class="happy-valentines-day" v-if="state === 'happyValentinesDay'">
 			<span class="happy-valentines-day__text">
