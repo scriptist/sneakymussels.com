@@ -7,6 +7,8 @@
 	height: 1em;
 	width: 1em;
 
+	z-index: 2;
+
 	&.bubble--heart {
 		border: none;
 		filter: drop-shadow(0 -2px 0 #c00);

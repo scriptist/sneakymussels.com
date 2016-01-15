@@ -1,0 +1,41 @@
+.background {
+	pointer-events: none;
+
+	.background__sea,
+	.background__seafloor {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+
+	.background__sea {
+		background-color: #1FA2B6;
+		transition: opacity $transition-long;
+
+		&.background__sea--t-enter,
+		&.background__sea--t-leave {
+			opacity: 0;
+		}
+	}
+
+	.background__seafloor {
+		background-image: url(/image/seafloor.webp);
+		background-position: top center;
+		background-size: cover;
+		background-repeat: no-repeat;
+		transform: perspective(500px) rotateX(0deg);
+		transform-origin: bottom center;
+
+		top: 40%;
+		z-index: 1;
+
+		transition: transform $transition-long;
+
+		&.background__seafloor--t-enter,
+		&.background__seafloor--t-leave {
+			transform: perspective(500px) rotateX(90deg);
+		}
+	}
+}

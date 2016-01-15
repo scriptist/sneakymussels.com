@@ -49,12 +49,78 @@ module.exports = class SneakMussels {
 		this.state = 'sneak';
 		this.mussel.elm.addEventListener('click', this.catch.bind(this));
 		this.mussel.elm.style.cursor = 'pointer';
-		this.mussel.setPosition(300, 300, 0.5).show();
+
+		window.setTimeout(this.nextAction.bind(this), 2000);
+	}
+
+	nextAction() {
+		const options = ['run', 'peek'];
+		const option = options[Math.floor(Math.random() * options.length)];
+		this[option](() => {
+			const nextTime = this.random(2000, 4000);
+			window.setTimeout(this.nextAction.bind(this), nextTime);
+		});
+	}
+
+	peek(cb) {
+		if (this.state !== 'sneak')
+			return;
+
+		this.mussel.elm.classList.add('mussel--behind-seafloor');
+
+		const time = 800;
+		const scale = 0.3;
+		const xOffset = this.mussel.settings.size * scale;
+		const x = this.random(xOffset, window.innerWidth - xOffset);
+		const y = window.innerHeight * 0.4;
+		const yHidden = window.innerHeight * 0.6;
+
+		this.mussel.setPosition(x, yHidden, scale, false);
+		this.mussel.show();
+		this.mussel.emitter.start();
+		this.mussel.setPosition(x, y, scale, true);
+
+		window.setTimeout(() => {
+			this.mussel.setPosition(x, yHidden, scale);
+		}, time / 2);
+
+		this.actionEndTimeout = window.setTimeout(() => {
+			this.mussel.hide();
+			this.mussel.emitter.stop();
+			this.mussel.elm.classList.remove('mussel--behind-seafloor');
+			if (typeof cb === 'function')
+				cb();
+		}, time);
+	}
+
+	run(cb) {
+		if (this.state !== 'sneak')
+			return;
+
+		const speed = 0.75; // px per ms
+		const time = window.innerWidth / speed;
+		const scale = 0.5;
+		const xOffset = this.mussel.settings.size * scale;
+		const y = this.random(window.innerHeight * 0.6, window.innerHeight - scale * this.mussel.settings.size);
+		this.mussel.setPosition(-xOffset, y, scale, false);
+		this.mussel.show();
+		this.mussel.emitter.start();
+		this.mussel.setPosition(window.innerWidth + xOffset, y, scale, time);
+
+		this.actionEndTimeout = window.setTimeout(() => {
+			this.mussel.hide();
+			this.mussel.emitter.stop();
+			if (typeof cb === 'function')
+				cb();
+		}, time);
 	}
 
 	catch() {
 		if (this.state !== 'sneak')
 			return;
+
+		window.clearTimeout(this.actionEndTimeout);
+		this.mussel.emitter.stop();
 
 		this.mussel.elm.style.cursor = '';
 		this.state = 'caught';
@@ -81,5 +147,9 @@ module.exports = class SneakMussels {
 				start: true,
 			});
 		}, 600);
+	}
+
+	random(min, max) {
+		return Math.random() * (max - min) + min;
 	}
 };
