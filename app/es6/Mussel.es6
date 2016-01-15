@@ -7,7 +7,7 @@ const defaultSettings = {
 	x: 0,
 	y: 0,
 	hidden: false,
-	size: 200,
+	size: 300,
 	parent: document.body,
 };
 
@@ -21,6 +21,7 @@ module.exports = class Mussel {
 		this.setPosition(this.settings.x, this.settings.y, this.settings.scale, false);
 		this.emitter = new BubbleEmitter({
 			positionElement: this.elm,
+			y: -this.settings.size / 4,
 		});
 	}
 

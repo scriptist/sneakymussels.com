@@ -34,7 +34,7 @@ module.exports = class BubbleEmitter {
 		let [x, y] = [this.x, this.y];
 		if (this.settings.positionElement) {
 			const elm = this.settings.positionElement;
-			[x, y] = [elm.offsetLeft, elm.offsetTop];
+			[x, y] = [elm.offsetLeft + this.x, elm.offsetTop + this.y];
 		}
 
 		new Bubble({

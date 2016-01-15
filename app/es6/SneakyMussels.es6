@@ -20,6 +20,7 @@ module.exports = class SneakMussels {
 			hidden: true,
 			parent: this.settings.parent,
 		});
+		this.actionCount = 0;
 
 		this.vue = new Vue({
 			el: this.settings.parent,
@@ -48,14 +49,17 @@ module.exports = class SneakMussels {
 
 		this.state = 'sneak';
 		this.mussel.elm.addEventListener('click', this.catch.bind(this));
-		this.mussel.elm.style.cursor = 'pointer';
 
 		window.setTimeout(this.nextAction.bind(this), 2000);
 	}
 
 	nextAction() {
-		const options = ['run', 'peek'];
-		const option = options[Math.floor(Math.random() * options.length)];
+		let option;
+		if (this.actionCount++ < 3) {
+			option = 'peek';
+		} else {
+			option = Math.random() > 0.66 ? 'run' : 'peek';
+		}
 		this[option](() => {
 			const nextTime = this.random(2000, 4000);
 			window.setTimeout(this.nextAction.bind(this), nextTime);
@@ -68,8 +72,8 @@ module.exports = class SneakMussels {
 
 		this.mussel.elm.classList.add('mussel--behind-seafloor');
 
-		const time = 800;
-		const scale = 0.3;
+		const time = 1000;
+		const scale = 0.2;
 		const xOffset = this.mussel.settings.size * scale;
 		const x = this.random(xOffset, window.innerWidth - xOffset);
 		const y = window.innerHeight * 0.4;
@@ -78,10 +82,10 @@ module.exports = class SneakMussels {
 		this.mussel.setPosition(x, yHidden, scale, false);
 		this.mussel.show();
 		this.mussel.emitter.start();
-		this.mussel.setPosition(x, y, scale, true);
+		this.mussel.setPosition(x, y, scale, time / 2);
 
 		window.setTimeout(() => {
-			this.mussel.setPosition(x, yHidden, scale);
+			this.mussel.setPosition(x, yHidden, scale, time / 2);
 		}, time / 2);
 
 		this.actionEndTimeout = window.setTimeout(() => {
@@ -99,9 +103,9 @@ module.exports = class SneakMussels {
 
 		const speed = 0.75; // px per ms
 		const time = window.innerWidth / speed;
-		const scale = 0.5;
+		const scale = 0.3;
 		const xOffset = this.mussel.settings.size * scale;
-		const y = this.random(window.innerHeight * 0.6, window.innerHeight - scale * this.mussel.settings.size);
+		const y = this.random(window.innerHeight * 0.8, window.innerHeight - scale * this.mussel.settings.size);
 		this.mussel.setPosition(-xOffset, y, scale, false);
 		this.mussel.show();
 		this.mussel.emitter.start();
@@ -122,7 +126,6 @@ module.exports = class SneakMussels {
 		window.clearTimeout(this.actionEndTimeout);
 		this.mussel.emitter.stop();
 
-		this.mussel.elm.style.cursor = '';
 		this.state = 'caught';
 		this.mussel.setPosition(window.innerWidth / 2, window.innerHeight / 2, 1);
 
@@ -138,7 +141,7 @@ module.exports = class SneakMussels {
 		setTimeout(() => {
 			window.h = new BubbleEmitter({
 				x: window.innerWidth / 2,
-				y: window.innerHeight - this.mussel.settings.size / 2 * scale,
+				y: window.innerHeight - this.mussel.settings.size * scale,
 				rate: 3,
 				lift: 4,
 				drift: 2,

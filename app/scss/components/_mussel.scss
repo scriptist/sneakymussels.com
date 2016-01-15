@@ -1,5 +1,8 @@
 .mussel {
-	background: green;
+	background-image: url(/image/mussel.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center center;
 	display: block;
 
 	transition: top $transition-long, left $transition-long, transform $transition-long;
