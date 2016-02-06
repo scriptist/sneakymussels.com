@@ -85,6 +85,12 @@ gulp.task('buildjs', ['es6'], function() {
 		.pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('buildsounds', function() {
+	return gulp
+		.src('app/sound/**/*')
+		.pipe(gulp.dest('dist/sound'));
+});
+
 gulp.task('lintes6', function() {
 	return gulp
 		.src('app/es6/**/*.es6')
@@ -129,7 +135,7 @@ gulp.task('buildimages', function() {
 		.pipe(gulp.dest('dist/image'));
 });
 
-gulp.task('build', ['buildcss', 'buildjs', 'buildhtml', 'buildimages']);
+gulp.task('build', ['buildcss', 'buildjs', 'buildhtml', 'buildimages', 'buildsounds']);
 
 gulp.task('cleancss', require('del').bind(null, ['tmp/css/*.css']));
 

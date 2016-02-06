@@ -32,7 +32,46 @@ module.exports = class SneakMussels {
 		});
 	}
 
+	initAudio() {
+		this.audioContext = new AudioContext();
+		this.sounds = {};
+
+		['run', 'peek'].forEach((key) => {
+			this.loadFile(`/sound/${key}.ogg`, (response) => {
+				this.audioContext.decodeAudioData(response, (buffer) => {
+					this.sounds[key] = buffer;
+				});
+			});
+		});
+	}
+
+	playSound(key, delay) {
+		if (!this.sounds[key])
+			return false;
+
+		delay = delay || 0;
+
+		let source = this.audioContext.createBufferSource();
+		source.buffer = this.sounds[key];
+		source.connect(this.audioContext.destination);
+
+		source.start(this.audioContext.currentTime + delay);
+	}
+
+	loadFile(url, cb) {
+		let request = new XMLHttpRequest();
+		request.open('GET', url, true);
+		request.responseType = 'arraybuffer';
+
+		// Decode asynchronously
+		request.onload = () => cb(request.response);
+		request.send();
+	}
+
 	load() {
+		this.initAudio();
+
+		// Fake loader
 		const i = setInterval(() => {
 			this.loadedAmount += 0.1;
 			if (this.loadedAmount >= 0.99) {
@@ -55,13 +94,15 @@ module.exports = class SneakMussels {
 
 	nextAction() {
 		let option;
-		if (this.actionCount++ < 3) {
+		if (++this.actionCount < 4) {
 			option = 'peek';
+		} else if (this.actionCount === 4) {
+			option = 'run';
 		} else {
-			option = Math.random() > 0.66 ? 'run' : 'peek';
+			option = Math.random() > 0.5 ? 'run' : 'peek';
 		}
 		this[option](() => {
-			const nextTime = this.random(2000, 4000);
+			const nextTime = this.random(3000, 5000);
 			window.setTimeout(this.nextAction.bind(this), nextTime);
 		});
 	}
@@ -69,6 +110,8 @@ module.exports = class SneakMussels {
 	peek(cb) {
 		if (this.state !== 'sneak')
 			return;
+
+		this.playSound('peek', 0.3);
 
 		this.mussel.elm.classList.add('mussel--behind-seafloor');
 
@@ -101,6 +144,8 @@ module.exports = class SneakMussels {
 		if (this.state !== 'sneak')
 			return;
 
+		this.playSound('run');
+
 		const speed = 0.75; // px per ms
 		const time = window.innerWidth / speed;
 		const scale = 0.3;
@@ -120,7 +165,7 @@ module.exports = class SneakMussels {
 	}
 
 	catch() {
-		if (this.state !== 'sneak')
+		if (this.state !== 'sneak' || this.actionCount < 4)
 			return;
 
 		window.clearTimeout(this.actionEndTimeout);
