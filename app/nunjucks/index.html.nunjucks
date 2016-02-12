@@ -19,7 +19,7 @@
 
 		<div class="look-in-the-cupboard" v-if="state === 'prize'">
 			<div class="look-in-the-cupboard__text">
-				Now look in the cupboard
+				Now look in the microwave
 			</div>
 			<button @click="happyValentinesDay" class="button">I've Got It</button>
 		</div>
